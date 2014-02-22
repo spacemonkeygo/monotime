@@ -8,5 +8,5 @@ import (
 
 func Monotonic() time.Duration {
     sec, nsec := monotime()
-    return time.Duration(sec * 1000000000 + int64(nsec))
+    return time.Duration(sec*1000000000 + int64(nsec))
 }
