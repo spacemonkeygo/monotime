@@ -4,9 +4,9 @@
 package time
 
 import (
-    "code.spacemonkey.com/go/space/time/_cgo"
+	"code.spacemonkey.com/go/space/time/_cgo"
 )
 
 func monotime() (sec int64, nsec int32) {
-    return _cgo.Monotime()
+	return _cgo.Monotime()
 }

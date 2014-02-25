@@ -23,9 +23,9 @@ int nano_count(struct timespec *ts) {
 import "C"
 
 func Monotime() (sec int64, nsec int32) {
-    var rv C.struct_timespec
-    if C.nano_count(&rv) != 0 {
-        panic("failed getting monotonic clock")
-    }
-    return int64(rv.tv_sec), int32(rv.tv_nsec)
+	var rv C.struct_timespec
+	if C.nano_count(&rv) != 0 {
+		panic("failed getting monotonic clock")
+	}
+	return int64(rv.tv_sec), int32(rv.tv_nsec)
 }
