@@ -3,11 +3,21 @@
 package _cgo
 
 /*
-#cgo LDFLAGS: -lrt
 #include <time.h>
 #include <stdint.h>
 
+#ifdef __MACH__
+#include <mach/clock.h>
+#include <mach/mach.h>
+#endif
+
 int nano_count(struct timespec *ts) {
+#ifdef __MACH__
+  uint64_t nanoseconds = mach_absolute_time();
+  ts->tv_sec = nanoseconds / 1000000000;
+  ts->tv_nsec = nanoseconds % 1000000000;
+  return 0;
+#else
 #ifdef CLOCK_MONOTONIC_RAW
   if (clock_gettime(CLOCK_MONOTONIC_RAW, ts) < 0) {
 #endif
@@ -16,6 +26,7 @@ int nano_count(struct timespec *ts) {
   }
 #ifdef CLOCK_MONOTONIC_RAW
   }
+#endif
 #endif
   return 0;
 }
