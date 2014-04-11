@@ -7,15 +7,21 @@ package _cgo
 #include <stdint.h>
 
 #ifdef __MACH__
-#include <mach/clock.h>
 #include <mach/mach.h>
+#include <mach/mach_time.h>
 #endif
 
 int nano_count(struct timespec *ts) {
 #ifdef __MACH__
-  uint64_t nanoseconds = mach_absolute_time();
-  ts->tv_sec = nanoseconds / 1000000000;
-  ts->tv_nsec = nanoseconds % 1000000000;
+  static mach_timebase_info_data_t info;
+  if (info.denom == 0) {
+    mach_timebase_info(&info);
+  }
+  uint64_t something = mach_absolute_time();
+  something /= info.denom;
+  something *= info.numer;
+  ts->tv_sec = something / 1000000000;
+  ts->tv_nsec = something % 1000000000;
   return 0;
 #else
 #ifdef CLOCK_MONOTONIC_RAW
