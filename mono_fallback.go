@@ -1,10 +1,10 @@
 // Copyright (C) 2014 Space Monkey, Inc.
 // +build !linux !amd64,!arm
 
-package time
+package monotime
 
 import (
-	"code.spacemonkey.com/go/space/time/_cgo"
+	"github.com/SpaceMonkeyGo/monotime/_cgo"
 )
 
 func monotime() (sec int64, nsec int32) {
