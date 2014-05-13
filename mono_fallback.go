@@ -17,7 +17,7 @@
 package monotime
 
 import (
-	"github.com/SpaceMonkeyGo/monotime/_cgo"
+	"github.com/spacemonkeygo/monotime/_cgo"
 )
 
 func monotime() (sec int64, nsec int32) {

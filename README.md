@@ -1,6 +1,6 @@
 # monotime
 
-Please see http://godoc.org/github.com/SpaceMonkeyGo/monotime for info
+Please see http://godoc.org/github.com/spacemonkeygo/monotime for info
 
 ### License
 
