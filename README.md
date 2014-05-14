@@ -1,4 +1,4 @@
-# monotime
+# monotime [![Build Status](https://api.travis-ci.org/spacemonkeygo/monotime.svg?branch=master)](https://travis-ci.org/spacemonkeygo/monotime)
 
 Please see http://godoc.org/github.com/spacemonkeygo/monotime for info
 
