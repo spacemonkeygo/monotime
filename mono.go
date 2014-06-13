@@ -20,8 +20,30 @@ import (
 	"time"
 )
 
+var (
+	wallclock_offset time.Time
+	monotonic_offset time.Duration
+)
+
 // Monotonic returns a time duration from some fixed point in the past.
 func Monotonic() time.Duration {
 	sec, nsec := monotime()
 	return time.Duration(sec*1000000000 + int64(nsec))
+}
+
+func init() {
+	SetTime(time.Now())
+}
+
+// SetTime sets the current time, used by Now() for stable offset generation.
+// SetTime is not threadsafe, and should be run during process start only.
+func SetTime(t time.Time) {
+	monotonic_offset = Monotonic()
+	wallclock_offset = t
+}
+
+// Now returns something close to time.Now(), but is monotonically increasing.
+// Use SetTime to change the clock that Now() is based off of.
+func Now() time.Time {
+	return wallclock_offset.Add(Monotonic() - monotonic_offset)
 }

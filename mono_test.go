@@ -47,3 +47,49 @@ func BenchmarkTimeNow(b *testing.B) {
 		time.Now()
 	}
 }
+
+func TestNow(t *testing.T) {
+	now := time.Now()
+	check := func() {
+		now := time.Now()
+		mono_now := Now()
+		var diff time.Duration
+		if now.After(mono_now) {
+			diff = now.Sub(mono_now)
+		} else {
+			diff = mono_now.Sub(now)
+		}
+		if diff >= 10*time.Microsecond {
+			t.Fatalf("computers suck: %s", diff)
+		}
+	}
+	check()
+	time.Sleep(5 * time.Millisecond)
+	check()
+	time.Sleep(20 * time.Millisecond)
+	check()
+	SetTime(now)
+	new_now := time.Now()
+	mono_now := Now()
+	var diff time.Duration
+	if now.After(mono_now) {
+		diff = now.Sub(mono_now)
+	} else {
+		diff = mono_now.Sub(now)
+	}
+	if diff >= 10*time.Microsecond {
+		t.Fatalf("computers suck: %s", diff)
+	}
+	if new_now.After(mono_now) {
+		diff = new_now.Sub(mono_now)
+	} else {
+		diff = mono_now.Sub(new_now)
+	}
+	if diff < 25*time.Millisecond {
+		t.Fatalf("computers suck: %s", diff)
+	}
+	diff -= 25 * time.Millisecond
+	if diff >= 1*time.Millisecond {
+		t.Fatalf("computers suck: %s", diff)
+	}
+}
