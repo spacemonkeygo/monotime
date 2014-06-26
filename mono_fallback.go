@@ -13,6 +13,7 @@
 // limitations under the License.
 
 // +build !linux !amd64,!arm
+// +build !windows
 
 package monotime
 
