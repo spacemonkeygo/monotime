@@ -21,9 +21,9 @@ import (
 
 var (
 	kernel32 = syscall.MustLoadDLL("kernel32.dll")
-	qpf = kernel32.MustFindProc("QueryPerformanceFrequency")
-	qpc = kernel32.MustFindProc("QueryPerformanceCounter")
-	freq = freqOrDie()
+	qpf      = kernel32.MustFindProc("QueryPerformanceFrequency")
+	qpc      = kernel32.MustFindProc("QueryPerformanceCounter")
+	freq     = freqOrDie()
 )
 
 func freqOrDie() int64 {
@@ -44,8 +44,8 @@ func monotime() (sec int64, nsec int32) {
 		panic(err)
 	}
 	us := (counter * 1000000) / freq
-	sec = us / 1000000;
-	us -= sec * 1000000;
+	sec = us / 1000000
+	us -= sec * 1000000
 	nsec = int32(us) * 1000
 	return sec, nsec
 }
