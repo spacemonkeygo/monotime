@@ -10,8 +10,8 @@ TEXT ·monotime(SB), 7, $32
 	MOVW	8(R13), R0
 	MOVW	12(R13), R2
 
-	MOVW	R0, 0(FP)
+	MOVW	R0, sec_lo+0(FP)
 	MOVW	$0, R1
-	MOVW	R1, 4(FP)
-	MOVW	R2, 8(FP)
+	MOVW	R1, sec_hi+4(FP)
+	MOVW	R2, nsec+8(FP)
 	RET
