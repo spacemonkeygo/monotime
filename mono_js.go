@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Space Monkey, Inc.
+// Copyright (C) 2015 Space Monkey, Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,14 +14,19 @@
 
 // +build !linux !amd64,!arm
 // +build !windows
-// +build !js
+// +build js
 
 package monotime
 
 import (
-	"github.com/spacemonkeygo/monotime/_cgo"
+	"github.com/davecheney/junk/clock"
 )
 
 func monotime() (sec int64, nsec int32) {
-	return _cgo.Monotime()
+	time := clock.Monotonic.Now()
+
+	sec = time.Unix()
+	nsec = int32(time.UnixNano())
+
+	return sec, nsec
 }
