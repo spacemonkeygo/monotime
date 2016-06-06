@@ -14,13 +14,15 @@
 
 // +build !linux !amd64,!arm
 // +build !windows
+// +build !cgo
 
 package monotime
 
 import (
-	"github.com/spacemonkeygo/monotime/_cgo"
+	"time"
 )
 
 func monotime() (sec int64, nsec int32) {
-	return _cgo.Monotime()
+	now := time.Now()
+	return now.Unix(), int32(now.Nanosecond())
 }

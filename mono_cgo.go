@@ -12,9 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// +build !android
+// +build !linux !amd64,!arm
+// +build !windows
+// +build cgo
 
-package _cgo
+package monotime
 
-// #cgo LDFLAGS: -lrt
-import "C"
+import (
+	"github.com/spacemonkeygo/monotime/_cgo"
+)
+
+func monotime() (sec int64, nsec int32) {
+	return _cgo.Monotime()
+}
