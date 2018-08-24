@@ -1,5 +1,7 @@
+// +build go1.11
+
 TEXT ·monotime(SB),7,$16
-	MOVQ	runtime·__vdso_clock_gettime_sym(SB), AX
+	MOVQ	runtime·vdsoClockgettimeSym(SB), AX
 	CMPQ	AX, $0
 	JEQ	vdso_is_sad
 	MOVL	$4, DI  // CLOCK_MONOTONIC_RAW
